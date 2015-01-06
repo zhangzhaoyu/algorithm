@@ -106,12 +106,12 @@ def countNumOfEachQuadrant(p_choose, distance, cutDataSet, center, timesOfr = 2)
         # index of quadrant
         quadrantIndex = quadrantOfIndex(cRowData, center)
         euclidDist = distance[j]
-        
+
         # euclidDist < 2r
         if (p_choose[quadrantIndex] != -1 and euclidDist < distance[p_choose[quadrantIndex]] * timesOfr) :
             numOfEachQuadrant[quadrantIndex] += 1
     return numOfEachQuadrant
-            
+
 
 if __name__ == '__main__' :
     iDataSet, cDataSet = createDataSet()
@@ -124,4 +124,3 @@ if __name__ == '__main__' :
     print '\nnumber of index in the 2r circle of earch quadrant :'
     print numOfEachQuadrant
     print '\nmissing data is : %f' %(resultData) 
-
