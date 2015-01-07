@@ -33,7 +33,6 @@ def quadrantOfIndex(target, center) :
         else :
             charArr += 0 * (2 ** (colNum -i -1))
     return charArr
-    
 
 # iDataSet : incomplete data record
 # cDataSet : complete data set
@@ -84,21 +83,20 @@ def imputationMissingData(p_choose, numOfEachQ, dist_weight, cDataSet, coefficie
     #print 'tempA %f' %(tempA)
     #print 'tempB %f' %(tempB)
     return tempA / tempB
-        
 
 # compute the distance wight
 def compute_dist_wight(p_choose, distance, colNum) :
     dist_weight = array([0.0 for i in range(2 ** colNum)])
-    
+
     for j in range(2 ** colNum) :
         if p_choose[j] != -1 :
             dist_weight[j] = 1.0 / (distance[p_choose[j]]) ** 2
     return dist_weight
 
-# cout number of every quadrant        
+# cout number of every quadrant
 def countNumOfEachQuadrant(p_choose, distance, cutDataSet, center, timesOfr = 2) :
     rowNum = cutDataSet.shape[0]
-    colNum = cutDataSet.shape[1]    
+    colNum = cutDataSet.shape[1]
     # number of index in each quadrant
     numOfEachQuadrant = array([0 for i in range(2 ** colNum)])
     for j in range(rowNum) :
@@ -123,4 +121,4 @@ if __name__ == '__main__' :
     print dist_weight
     print '\nnumber of index in the 2r circle of earch quadrant :'
     print numOfEachQuadrant
-    print '\nmissing data is : %f' %(resultData) 
+    print '\nmissing data is : %f' %(resultData)
