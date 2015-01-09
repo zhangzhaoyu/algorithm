@@ -36,19 +36,16 @@
 % \address{Address\thanksref{label3}}
 % \thanks[label3]{}
 
-\title{An Improved Imputation Method for Missing Data Based on $QENNI$ \thanksref{label1}}
+\title{The Title of Your Article\thanksref{label1}}
 \thanks[label1]{Project supported by the National Nature Science Foundation of China (No. ***).}
-\author[author1]{Zhaoyu Zhang\corauthref{cor1}},
-\ead{china.zhangzhaoyu@gmail.com}
+\author[author1]{Xiaohong Liu\corauthref{cor1}},
+\ead{email@address.com}
 %\thanks[label2]{Footnotes for authors}
 \corauth[cor1]{Corresponding author.}
 % other authors
-\author[author2]{Zhibo Chen},
-\author[author3]{JianXin Wang}
-
-\address[author1]{School of Information Science And Technology, Beijing Forestry University, Beijing 100083, China}
-\address[author2]{School of Information Science And Technology, Beijing Forestry University, Beijing 100083, China}
-\address[author3]{School of Information Science And Technology, Beijing Forestry University, Beijing 100083, China}
+\author[author2]{Firsrtname C. Surname}
+\address[author1]{Institute of Mathematical Sciences, Dalian University of Technology, Dalian 116024, China}
+\address[author2]{Address for 2nd author}
 %\thanks[label3]{Footnotes for address}
 % you can use optional labels to link authors explicitly to addresses:
 % \author[label1]{},
@@ -58,36 +55,21 @@
 
 \begin{abstract}
 % Text of abstract
-Missing data imputation is an important research aspect in data mining. Data quality is a major concern in Machine Learning and other correlated areas such as Knowledge Discovery from Databases ($KDD$). Many imputation methods of missing data have been designed to resolve the problem. More or less, they have some deficiencies. As the K-Nearst Neighbor Imputation ($KNNI$) algorithm is often biased in choosing the $k$ mearest neighbors of missing data. A new imputation method is put forward, Quadrant Encapsidated Nearest Neighbor based Imputation method ($QENNI$). QENNI uses the quadrant nearest neighbors around a missing datum to impute the missing datum. It is not biased in selecting nearest neighbors. Experiments demonstrate that QENNI is much better than the kNNI method in imputed accuracy. But, as the experiment proceeded, we found out the denseness of points in each quadrant and the distance between the two point affect the missing data value badly. So, we improved the QENNI algorithm and put forward Denseness and Distence Weighted Quadrant Encapsidated Nearest Neighbor based Imputation method algorithm (DDWQENNI). The experimental result demonstrates that our $DDWQENNI$ method has a higer imputation accuracy than QENNI.
+This article is designed to help in the contribution for the Journal of Computational Information Science.
+It is divided into several sections.
+Section 1 consists of the styles and notes for the main text.
+Section 2 illustrates the Mathematical writing style.
+Section 3 and 4 cover the topic of drawing tables and inserting figures respectively.
+The residuals deal with references, appendix, acknowledges, etc.
 \end{abstract}
 \begin{keyword}
 % keywords here, in the form: keyword \sep keyword
-Imputation of missing data \sep Quadrant  \sep KNNi \sep QENNI \sep WQENNI
+Style guide \sep Examples \sep Latex style
 \end{keyword}
 \end{premaker}
 
 % main text
-\section{Introduction}
-\label{Maintext}
-
-Data mining \cite{NumeApp} is an interdisciplinary subfied of computer science. It is the computational process of dicovering patterns in large data sets involving methods at the intersection of artificial intelligence, machine learning, statistics, and database systems. The overall goal of the data mining process is to extract information from a data set and transform it into an understandable structure for further use. Data mining is a powerful technology with great potential. Pre-processing as one of the indispensable step of data mining can seriously affect the accuracy of the conclusion. That is why missing data imputation has been an inevitably and challenging research.
-
-Due to its importance in Dataing mining, missing data imputation has received considerable attention during the past decades. A large percentage of studies have been done to develop procedures to deal with missing values. Recently, no matter in which filed of study, $kNNI$ \cite{NumeApp} imputation method has been researched and applied widely because of its easy operating, high efficiency an accuracy. It is an excellent imputation algorithm, but thoes choosing nearest neighbors of misssing data is very likely biased in one side. So it's not the best choice to use them for missing data imputation. In addiction, the parameter $k$ is the key factor for the $kNNI$ algorithm. In the experiments, if the $k$ sets a larger value, it brings seriously randomness; if the $k$ sets a smaller value, it will lose large sample size standard of statistics. Before very experiment of $kNNI$, lots of calculation should be token to get the approproate vlaue of $k$. It makes the algorithm more complex. In response to these prolems, Shichao zhang \cite{NumeApp} put forward a new missing data imputation algorithm, quadrant encapsidated nearest neighbor based imputation ($QENNI$). QENNI algorithm imputes the missing data by finding all of the quadrant encapsidated nearest neighbors of the missing data.Exactly to say, it assumes the missing data as the center, the complete data sets are distributed to each quadrant. Because of this feature, it can void the heavily depending on the parameter $k$ of kNNI. Experimental results show QENNI has a higer accuracy than kNNI.
-
-But, according to the analysis of the missing data, we find it also seriously affected by denseness of points in each quadrant and the distance between the missing data and complete data. So, based on QENNI,  we take the denseness and distance's weight into account and proposes a new missing data imputation, Denseness and Distence Weighted Encapsidated Nearest Neighbor based Imputation method ($DDWQENNI$). This imputation algorithm overcomes the above-mentioned limitations and has a good performance than QENNI.
-
-The rest of this paper is organized as follows: Section 2 introduces the details of the proposed imputation method and give the corresponding algorithm. Seciont 3 gives the experiments and results. Section 4 discusses the result and drwas a conclusion.
-
-\section{WQENNI Algorithm}
-\label{Maintext}
-
-\section{Experiments and Results}
-\label{Maintext}
-
-\section{Conclusion}
-\label{Maintext}
-
-\section{Introduction}
+\section{Main Text}
 \label{Maintext}
 \begin{itemize}
 \item{\bf Common} Contributions must be written in English. Each
@@ -98,7 +80,7 @@ informative. Titles are often used in information-retrieval
 systems. Avoid abbreviations and formulae where possible.
 \item{\bf Author} There should be and should only be one
 corresponding author. \item{\bf Abstract} A concise and factual
-abstract, of aro und 100 words, is required. The abstract should
+abstract, of around 100 words, is required. The abstract should
 state briefly the purpose of the research, the principal results
 and major conclusions. It must be able to stand alone, references
 should be avoided. Non-standard or uncommon abbreviations should

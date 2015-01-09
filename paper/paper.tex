@@ -1,0 +1,38 @@
+%Simple Video Demo on How to Use Emacs as Latex Editor
+
+%Key Bindings in this Video:
+
+% C-c C-c to compile from .tex into .pdf
+% C-c C-c once again to view the PDF
+
+% Lets create a basic .tex document
+% Lets compile this into pdf C-c C-c
+% Lets insert some logo to the docs
+% Within emacs, you can write .tex document, compile it into pdf and also
+% preview the result...
+
+\documentclass{article}
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\setCJKmainfont{WenQuanYi Micro Hei}
+
+\title{Emacs as xx Latex 中文  嘻嘻 Editor 中文显示的问题}
+\author{@zhangzhaoyu}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+\includegraphics[scale=0.3]{emacslogo.png}
+\end{center}
+
+
+\section{Our First Section}
+This is the boday of Our first section.这是中文的内容
+\section{Second Sesion}
+This is the boday of Our second section.
+\section{Third Section}
+This is the boday of Our third section.
+
+\end{document}

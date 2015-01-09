@@ -1,0 +1,7 @@
+\setvolume{1}                             %for printing use only
+\setyear{2010}                             %for printing use only
+\setpagerange{1}{6}                    %for printing use only
+\setheadauthor{H. Chao et al.}          %for printing use only
+\setissn{1548--7741} \setpubdate{January 2010} \setno{1}
+
+\afterpage{\beginheader}                   %for printing use only

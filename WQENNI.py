@@ -10,7 +10,7 @@ from numpy import *
 import matplotlib
 import matplotlib.pyplot as plt
 
-def createDataSet() : 
+def createDataSet() :
     iDataSet = array([0, 0])
     cDataSet = array([
         [1, 1, 1],
@@ -39,7 +39,6 @@ def quadrantOfIndex(target, center) :
 def wqenni_impl(iDataSet, cDataSet) :
     # cut the last column of the data
     cutDataSet = cDataSet[:, 0:cDataSet.shape[1] - 1]
-    
     rowNum = cutDataSet.shape[0]
     colNum = cutDataSet.shape[1]
     diffiDataSet = tile(iDataSet, (rowNum, 1)) - cutDataSet
@@ -52,8 +51,8 @@ def wqenni_impl(iDataSet, cDataSet) :
     p_choose = array([-1 for i in range(2 ** colNum)])
     for k in range(rowNum) :
         cRowData = cutDataSet[k, :]
-        quadrantIndex = quadrantOfIndex(cRowData, iDataSet)   
-     
+        quadrantIndex = quadrantOfIndex(cRowData, iDataSet)
+
         if (p_choose[quadrantIndex] != -1 and p_choose[quadrantIndex] != k ) :
             min_dist = distance[p_choose[quadrantIndex]]
             k_dist = distance[k]
@@ -71,7 +70,7 @@ def wqenni_impl(iDataSet, cDataSet) :
 def imputationMissingData(p_choose, numOfEachQ, dist_weight, cDataSet, coefficient = 0.5) :
     sumOfIndex = numOfEachQ.sum()
     sizeOfQ = len(dist_weight)
-    
+
     tempA = 0.0
     tempB = 0.0
     for i in range(sizeOfQ) :
