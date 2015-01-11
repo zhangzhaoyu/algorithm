@@ -36,7 +36,7 @@
 % \address{Address\thanksref{label3}}
 % \thanks[label3]{}
 
-\title{An Improved Imputation Method for Missing Data Based on $QENNI$ \thanksref{label1}}
+\title{An Improved Imputation Method for Missing Data Based on QENNI \thanksref{label1}}
 \thanks[label1]{Project supported by the National Nature Science Foundation of China (No. ***).}
 \author[author1]{Zhaoyu Zhang\corauthref{cor1}},
 \ead{china.zhangzhaoyu@gmail.com}
@@ -58,7 +58,7 @@
 
 \begin{abstract}
 % Text of abstract
-Missing data imputation is an important research aspect in data mining. Data quality is a major concern in Machine Learning and other correlated areas such as Knowledge Discovery from Databases ($KDD$). Many imputation methods of missing data have been designed to resolve the problem. More or less, they have some deficiencies. As the K-Nearst Neighbor Imputation ($KNNI$) algorithm is often biased in choosing the $k$ mearest neighbors of missing data. A new imputation method is put forward, Quadrant Encapsidated Nearest Neighbor based Imputation method ($QENNI$). QENNI uses the quadrant nearest neighbors around a missing datum to impute the missing datum. It is not biased in selecting nearest neighbors. Experiments demonstrate that QENNI is much better than the kNNI method in imputed accuracy. But, as the experiment proceeded, we found out the denseness of points in each quadrant and the distance between the two point affect the missing data value badly. So, we improved the QENNI algorithm and put forward Denseness and Distence Weighted Quadrant Encapsidated Nearest Neighbor based Imputation method algorithm (DDWQENNI). The experimental result demonstrates that our $DDWQENNI$ method has a higer imputation accuracy than QENNI.
+Missing data imputation is an important research aspect in data mining. Data quality is a major concern in Machine Learning and other correlated areas such as Knowledge Discovery from Databases (KDD). Many imputation methods of missing data have been designed to resolve the problem. More or less, they have some deficiencies. As the K-Nearst Neighbor Imputation (KNNI) algorithm is often biased in choosing the $k$ mearest neighbors of missing data. A new imputation method is put forward, Quadrant Encapsidated Nearest Neighbor based Imputation method (QENNI). QENNI uses the quadrant nearest neighbors around a missing datum to impute the missing datum. It is not biased in selecting nearest neighbors. Experiments demonstrate that QENNI is much better than the kNNI method in imputed accuracy. But, as the experiment proceeded, we found out the denseness of points in each quadrant and the distance between the two point affect the missing data value badly. So, we improved the QENNI algorithm and put forward Denseness and Distence Weighted Quadrant Encapsidated Nearest Neighbor based Imputation method algorithm (DDWQENNI). The experimental result demonstrates that our DDWQENNI method has a higer imputation accuracy than QENNI.
 \end{abstract}
 \begin{keyword}
 % keywords here, in the form: keyword \sep keyword
@@ -69,7 +69,6 @@ Imputation of missing data \sep Quadrant  \sep KNNi \sep QENNI \sep WQENNI
 % main text
 \section{Introduction}
 \label{Maintext}
-
 Data mining \cite{NumeApp} is an interdisciplinary subfied of computer science. It is the computational process of dicovering patterns in large data sets involving methods at the intersection of artificial intelligence, machine learning, statistics, and database systems. The overall goal of the data mining process is to extract information from a data set and transform it into an understandable structure for further use. Data mining is a powerful technology with great potential. Pre-processing as one of the indispensable step of data mining can seriously affect the accuracy of the conclusion. That is why missing data imputation has been an inevitably and challenging research.
 
 Due to its importance in Dataing mining, missing data imputation has received considerable attention during the past decades. A large percentage of studies have been done to develop procedures to deal with missing values. Recently, no matter in which filed of study, $kNNI$ \cite{NumeApp} imputation method has been researched and applied widely because of its easy operating, high efficiency an accuracy. It is an excellent imputation algorithm, but thoes choosing nearest neighbors of misssing data is very likely biased in one side. So it's not the best choice to use them for missing data imputation. In addiction, the parameter $k$ is the key factor for the $kNNI$ algorithm. In the experiments, if the $k$ sets a larger value, it brings seriously randomness; if the $k$ sets a smaller value, it will lose large sample size standard of statistics. Before very experiment of $kNNI$, lots of calculation should be token to get the approproate vlaue of $k$. It makes the algorithm more complex. In response to these prolems, Shichao zhang \cite{NumeApp} put forward a new missing data imputation algorithm, quadrant encapsidated nearest neighbor based imputation ($QENNI$). QENNI algorithm imputes the missing data by finding all of the quadrant encapsidated nearest neighbors of the missing data.Exactly to say, it assumes the missing data as the center, the complete data sets are distributed to each quadrant. Because of this feature, it can void the heavily depending on the parameter $k$ of kNNI. Experimental results show QENNI has a higer accuracy than kNNI.
@@ -78,15 +77,28 @@ But, according to the analysis of the missing data, we find it also seriously af
 
 The rest of this paper is organized as follows: Section 2 introduces the details of the proposed imputation method and give the corresponding algorithm. Seciont 3 gives the experiments and results. Section 4 discusses the result and drwas a conclusion.
 
-\section{WQENNI Algorithm}
-\label{Maintext}
+\section{DDWQENNI Algorithm}
+\label{sec:2.1}
+On the basis of the above discussion, in this part, we give the defination and implementation of the DDWQENNI algorithm. The improvement of DDWQENNI algorithm will be pointed out. We also discuss the shortcomings of kNNI and QENNI.
+\subsection{Algorthm background}
+Suppose $X$ is an M-dimensional random vector, $Y$ is the dependent variable affected by $X$. In practice, if a missing data random sample (size is $n$) can be get, it can be expressed as $(X_i, Y_i, \delta_i), i= 1, 2,\cdots, n$. In which, all of the $X_i$ vector is observable, when $Y_i$ is missing, $\delta_i = 1$, otherwise $\delta_i = 0$. If the data set $T$ contains $n$ data, each data has $m + 1$ attributes (contains $m$ condition attributes and $1$ decision attribute), keep: $T_i = (X_i1, X_i2, \cdots, X_im, Y)$ (missing values are generated only in decsion attribute $Y$). $T = I \bigcap C$, let $r = \sum\limits_{k=1}\limits^{n} \delta_i$, $I = {T_1, \cdots, T_r}, r \leq n$ are the data sets which decision attrubutes are missing, referred to missing data sets; $C = {T_r+_1, \cdots, T_n}$ are the complete data sets.
+\subsection{$k$NNI algorithm}
+\label{2.2}
+K-Nearst Neighbor Imputation ($k$NNI) imputes the missing value by the $k$ nearest neighbors of the missing data. It bases on the theory that the closer the distance, the closer the relation. If a data loses one attrubute, to find out the $k$ nearest neighbors in complete data sets and use the average value of them to impute the missing value.
+
+\subsection{QENNI algorithm}
+\label{2.3}
+QENNI algorithm.
+
+\subsection{DDWQENNI aglorithm}
+\label{2.4}
+
 
 \section{Experiments and Results}
-\label{Maintext}
+\subsection{Only the first word in the title of ``subsection" be capitalized}
+\label{sec:1.1}
 
 \section{Conclusion}
-\label{Maintext}
-
 For improving the efficiency and accuracy of missing data imputaion, DDWQENNI imputation algorithm has been put forward. The method is able to overcome the limitations of kNNI and QENNI. The innovation of our method is to take the denseness of points in each quadrant and distence between the compelte data and the missing data into consideration. So, the imputed data can be more closer to the missing data. The experimental results indicate that DDWQENNI algorithm has a better performance than QENNI. Feature work is to improve the computing speed of WQENNI in hyperspace.
 
 \section{Introduction}
