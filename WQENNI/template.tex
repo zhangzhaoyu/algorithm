@@ -81,22 +81,120 @@ The rest of this paper is organized as follows: Section 2 introduces the details
 \label{sec:2.1}
 On the basis of the above discussion, in this part, we give the defination and implementation of the DDWQENNI algorithm. The improvement of DDWQENNI algorithm will be pointed out. We also discuss the shortcomings of kNNI and QENNI.
 \subsection{Algorthm background}
-Suppose $X$ is an M-dimensional random vector, $Y$ is the dependent variable affected by $X$. In practice, if a missing data random sample (size is $n$) can be get, it can be expressed as $(X_i, Y_i, \delta_i), i= 1, 2,\cdots, n$. In which, all of the $X_i$ vector is observable, when $Y_i$ is missing, $\delta_i = 1$, otherwise $\delta_i = 0$. If the data set $T$ contains $n$ data, each data has $m + 1$ attributes (contains $m$ condition attributes and $1$ decision attribute), keep: $T_i = (X_i1, X_i2, \cdots, X_im, Y)$ (missing values are generated only in decsion attribute $Y$). $T = I \bigcap C$, let $r = \sum\limits_{k=1}\limits^{n} \delta_i$, $I = {T_1, \cdots, T_r}, r \leq n$ are the data sets which decision attrubutes are missing, referred to missing data sets; $C = {T_r+_1, \cdots, T_n}$ are the complete data sets.
+Suppose $X$ is an M-dimensional random vector, $Y$ is the dependent variable affected by $X$. In practice, if a missing data random sample (size is $n$) can be get, it can be expressed as $(X_i, Y_i, \delta_i), i= 1, 2,\cdots, n$. In which, all of the $X_i$ vector is observable, when $Y_i$ is missing, $\delta_i = 1$, otherwise $\delta_i = 0$. If the data set $T$ contains $n$ data, each data has $m + 1$ attributes (contains $m$ condition attributes and $1$ decision attribute), keep: $T_i = (X_{i1}, X_{i2}, \cdots, X_{im}, Y)$ (missing values are generated only in decsion attribute $Y$). $T = I \bigcap C$, let $r = \sum\limits_{k=1}\limits^{n} \delta_i$, $I = {T_1, \cdots, T_r}, r \leq n$ are the data sets which decision attrubutes are missing, referred to missing data sets; $C = {T_r+_1, \cdots, T_n}$ are the complete data sets.
 \subsection{$k$NNI algorithm}
 \label{2.2}
 K-Nearst Neighbor Imputation ($k$NNI) imputes the missing value by the $k$ nearest neighbors of the missing data. It bases on the theory that the closer the distance, the closer the relation. If a data loses one attrubute, to find out the $k$ nearest neighbors in complete data sets and use the average value of them to impute the missing value.
 
+As previously mentioned, $k$NNI is praised by the majority of researchers because of its simple operation, low time complexity and high imputation accuracy. But there are still some drawbacks. The $k$ nearest neighbors selected by $k$NNI algorithm may occur preferences, which makes the filling effect is relatively inefficient. In fact, from the distribution of complete data which surrounds the missing data, the distribution of its nearest neighbors data and overall data may be inconsisten. For instance, as shown in Fig.\ref{fig:figure1}, $O$ represents missing data, the other points represents complete data, we use $k$NNI algorithm to impute the missingd data value. According to the 2.2, we need to find three nearest neighbors and use them to impute the missing data value. So $A, B, C$ are selected. Nevertheless, from Fig.\ref{fig:figure1} we can clearly see that the complete data surrouding the missing data are evenly distributed, but the three selected nearest neighbors bias in the first quadrant. So the three nearest neighbors may not be the best choice and may not be able to get the best results by using them to impute the missing value.
+
+\begin{figure}[h]
+\centering
+\includegraphics[angle=0, width=0.5\textwidth]{figure1.png}
+\caption{Nearest neighbors chosen by $k$NN}
+\label{fig:figure1}
+\end{figure}
+
+To choose the $k$ parameter of $k$NNI algorithm is diffuclt. Each time, we use $k$NNI to impute the missing data, we need to repeat the experiment so many times to obtain the value $k$. Once the value of $k$ occurs deviation, the performance of $k$NNI will be significantly lower. In conclusion, if the algorithm can eliminate the dependence on the parameter $k$, it will be the best choice.
+
 \subsection{QENNI algorithm}
 \label{2.3}
-QENNI algorithm.
+We propose the hypothesis that the complete data which is used to impute missing data must be the nearest neighbors and in the first encirclement of the missingd data. we also need to eliminate the dependence on the parameter $k$. Let's realize the idea below.
+
+\begin{figure}[h]
+\centering
+\includegraphics[angle=0, width=0.5\textwidth]{figure2.png}
+\caption{Nearest neighbors chosen by QENNI}
+\label{fig:figure2}
+\end{figure}
+
+\begin{enumerate}[(1)]
+\item First, take data $(X_i, X2, \cdots, X_m)$ which contains $m$ condition attributes as a point of $m$-dimensional space, estabish a coordinate system and the missding data is the center. Through the axis to divide the $m$-dimensional into $2^m$ quadrants.
+  \begin{enumerate}[a.]
+  \item When $m = 2$, the condition attributes $(X_1, X_2)$ can be regard as a point of plane. As shown in Fig.\ref{fig:figure2}, the axis divides the plane into $2^2$ quadrants. If one point is just between the two quadrants, we classify it to one of its nearby quadrant. According to our difinition, everyone of the data set can be located on the only certainty quadrant.
+  \item Similarly,when $m = 3$, the condition attributes of data is $(X_1, X_2, X3)$. The Formed spatial coordinate system divides the space into $2^3$ quadrants and everyone of the data is also in the only identified quadrant.
+  \item Extended to the general case, when $m = m$, the condition attributes of data is $(X_i, X2, \cdots, X_m)$ and the space is divided into $2^m$ quadrants.
+  \end{enumerate}
+\item Based on the dividing of $m$-dimensional space, the Euclidean distance of each point from its own to the center (which is the missing data) is calculated. To find out the nearest one of each quadrant (if not exists, ignore it) and use decision attributes of them to impute the missing data value. With $m = 2$, for example, as shown in Fig.\ref{fig:figure2}. In each quadrant,  we select $A, B, C, D$ as the nearest neighbors and use the decision attributes $Y$ of them to impute the missing data value of center $O$. It also weighted by the distance of each selected point. Obviously, the way of QENNI to choose the nearest neighbors is different from the $k$NNI algorithm.
+\begin{equation}
+\label{eq:1}
+dist(T_i, T_j) =\sqrt{ \sum\limits_{k=1}\limits^{m} (X_{ik} - X_{jk})^2}
+\end{equation}
+\item In order to analyze the effectiveness of the algorithm better, for each missing data $T_i (T_i \in I)$, on the basis of QENNI algorithm,  the following definition can be given:
+\begin{description}
+\item[Step 1] The coordinate system centered at $T_i$ divides the space into $2^m$ quadrants and the complete data set $C$ based on quadrant is divided into $2^m$ subset $C = \{D_1, D_2, \cdots, D_q, \cdots, D_{2^m}\}$. Each complete data set $D_q (q = 1, 2, \cdots, 2^m)$ is the $q$ quadrant's data of $T_i$.
+\item[Step 2] $\forall T_j \in D_q$, satisfy $Near_q = \arg \min dist_{T_j \in D_q}(T_i, T_j)$, $Near_q$ is nearest neighbor of $T_i$ in $q$ quadrant. As shown in Fig.\ref{fig:figure2}, the first quadrant data of $T_o$ is $D_1 = \{T_D, T_E, T_F, T_G, T_H \}$. So $Near_q = T_D$ which is the nearest neighbor of first quadrant.
+\item[Step 3] In the $q$ quadrant, take $T_i$ as the center of the sphere (or hypersphere), dist($Near_q, T_i$) as the radius to ensure the $Shell_q$ of $T_i$ in $q$ quadrant.
+\item[Step 4] All of the $Shell_q (q = 1, 2, \cdots, 2^m)$ and axis constitute the $m$-dimensional subspace which is Shell of $T_i$.
+\item[Step 5] All the of nearest neighbor $\{Near_1, Near_2, \cdots, Near_{2^m}\}$ of $T_i$ in every quadrant are called the points of Shell.
+\item[Nature 1] If $D_q \neq \O$, the Shell of $T_i$ must exist in $q$ quadrant.
+\item[Nature 2] $\forall T_j \in D_q$, $\exists dist(T_j, T_i) \geq dist(Near_q, T_i)$.
+\end{description}
+\item In summary, the QENNI algorithm can overcome the shortcomings of $k$NNI in choosing the $k$ nearest neighbors of missing data. The selected complete data is not biased in any side and the Shell of the missing data is smallest. That is to say it does not exist any other complete data on the Shell of the missing data. It is thus clear that QENNI algorithm can find out the most satisfied complete data without any preferences. They can represent the missing data better than $k$NNI.
+\end{enumerate}
 
 \subsection{DDWQENNI aglorithm}
 \label{2.4}
+Even though the QENNI algorithm has a better performace than $k$NNI, it does not take the denseness into account. As shown in Fig.\ref{fig:figure3}, if we just think about the distance of complete data $A$ and $D$, the $A$ has a higher affect of the result. But it is clear that just the distance can not represents the real affect of the complete data $A$. If the denseness of complete data which surrounds $A$ is token into accout, it may have a higer weight than $D$. Based on the above considerations, Our new algorithm takes both the weight of distance and denseness into accout. The fellowing definitions are given.
+\begin{figure}[h]
+\centering
+\includegraphics[angle=0, width=0.6\textwidth]{figure3.jpg}
+\caption{Nearest neighbors chosen affected by Denseness}
+\label{fig:figure3}
+\end{figure}
 
+\begin{enumerate}[(1)]
+\item Weight of Distance : The different length of distance has differnet size of influence. The more closer, the higher wieght. So we keep weight of each nearest neighbor $Near_i (i=1, 2, \cdots, 2^m)$ in every quadrant as:
+\begin{equation}
+\label{eq:2}
+W(D)_i = \frac{1}{dist(Near_i, T_i)^2}
+\end{equation}
+\item Weight of Denseness : The denseness represents the number of complete data in per unit volume and it can indicate the wight of the quadrant's denseness. We use Eq. (\ref{eq:3}) to calculate the volume of n-sphere. The Eq. (\ref{eq:5}) is used to calculate the denseness which can represents the weight. Each quadrant's number complete data is counted as $N = \{N_1, \cdots, N_i, \cdots, N_{2^m}\}$.
+
+\begin{equation}
+\label{eq:3}
+V_n(R) = \frac{\pi^{\frac{n}{2}}R^n}{\Gamma (\frac{n}{2} + 1)}
+\end{equation}
+
+\begin{eqnarray}\label{eq:4}
+\Gamma(\frac{n}{2} + 1) = \left\{\begin{array}{ll}(\frac{n}{2})! & \mbox{n is Even} ,\\\sqrt{\pi}\frac{n!!}{2^{\frac{n+1}{2}}} & \mbox{n is Odd}.\end{array}\right.
+\end{eqnarray}
+
+\begin{equation}
+\label{eq:5}
+W(\rho)_i = \frac{N_i}{\frac{V_n(R)_i}{2^m}}
+\end{equation}
+
+\item Core algorithm : The algorithm takes both denseness and distance's weight into consideration and bring in the factor $\beta (0.0 \leq \beta \leq 1.0)$ to decide the percentage of denseness and distance.  The detail steps of DDWQENNI are as follows:
+\begin{enumerate}[a.]
+  \item Calculate the Euclidean distance of missing data set $I$ and complete data set $C$ by Eq. (\ref{eq:1}).
+  \item Iterate data set $I$ and $C$ calculate the nearest neighbor, total number of complete data in each quadrant where $R \leq 2 * dist(Near_i, I_i)$ and volume of each hyperspace by Eq. (\ref{eq:2}, \ref{eq:3}, \ref{eq:5}).
+  \item The key about how to figure the complete data for each quadrant is to translate the data vector into a number and use it to mark the quadrant. First, translate the coordinate into a vector consisting of one and zero. if the value of vector greater than zero, translate it into one, otherwise keep it as zero. Than, translate the binary number into decimal.
+  \begin{equation}
+  \label{eq:6}
+  \begin{pmatrix} 2& -1& 0\end{pmatrix}\Rightarrow \begin{pmatrix} 1& 0& 0\end{pmatrix} \Rightarrow (1*2^2 + 0*2^1+ 0*2^0) \Rightarrow 4
+  \end{equation}
+  \item Take the previous results into Eq. (\ref{eq:7}) to calculate the missing data value ($v_i$). The equation has token theweight of denseness and distance into account.
+  \begin{equation}
+  \label{eq:7}
+  v_i = \frac{\sum\limits_{i=1}\limits^{n}((1-\beta)W(D)_i + \beta W(\rho)_i) * D_i}{\sum\limits_{i=1}\limits^{n}((1-\beta)W(D)_i + \beta W(\rho)_i}
+  \end{equation}
+\end{enumerate}
+\end{enumerate}
 
 \section{Experiments and Results}
-\subsection{Only the first word in the title of ``subsection" be capitalized}
+\subsection{Dataset}
 \label{sec:1.1}
+In order to test our Algorithm, we choose the open dataset Abalone which is from UCI and Delta\_ailerons which is from weka. We do the same experiments as QENNI does. The sex attribute is excluded and left the data whoes sex value is $M$. It has 8 attribute and 1528 records in total. The Diameter attribute is chosen as decision attribute and missing data is generate on it. The Delta\_ailerons dataset has 6 attributes and 7129 records in total. The last attribute is chosen as descsion attribute and the missing data is generated on it. The imputation accuracy is used as evaluation index. In general, the Root Mean Square Error (RMSE) is used. $e_i$ is the original value, $e'_i$ is the imputation value and $m$ is the number of missing data. The smaller the RMSE, the higer the imputation accuracy.
+\begin{equation}
+\label{eq:6}
+RMSE = \frac{1}{m}\sum\limits_{1=1}\limits^{m}(e_i - e'_i)^2
+\end{equation}
+
+\subsection{Experiments}
+
+\subsection{Results analysis}
+
 
 \section{Conclusion}
 For improving the efficiency and accuracy of missing data imputaion, DDWQENNI imputation algorithm has been put forward. The method is able to overcome the limitations of kNNI and QENNI. The innovation of our method is to take the denseness of points in each quadrant and distence between the compelte data and the missing data into consideration. So, the imputed data can be more closer to the missing data. The experimental results indicate that DDWQENNI algorithm has a better performance than QENNI. Feature work is to improve the computing speed of WQENNI in hyperspace.
