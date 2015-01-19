@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/env python
 
 # author  zhangzhaoyu
 # Date    2015-01-03
