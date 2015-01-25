@@ -32,7 +32,7 @@ def classify0(inX, dataSet, labels, k) :
         sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), 
     reverse=True)
     return sortedClassCount[0][0]
-   
+
 def file2matrix(filename) :
     fr = open(filename)
     arrayOLines = fr.readlines()
