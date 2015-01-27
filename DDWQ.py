@@ -6,14 +6,14 @@
 # DDWQ is depended on QENNI(quadrant encapsidated nearest based imputation)
 #
 #
-from numpy import *
+import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import math as math
 
 def createDataSet() :
-    iDataSet = array([0, 0])
-    cDataSet = array([
+    iDataSet = np.array([0, 0])
+    cDataSet = np.array([
         [1, 1, 1],
         [1, 2, 1],
         [2, 1, 1],
@@ -37,7 +37,7 @@ def quadrantOfIndex(target, center) :
 
 # iDataSet : incomplete data record
 # cDataSet : complete data set
-def wqenni_impl(iDataSet, cDataSet) :
+def wqenni_impl(iDataSet, cDataSet, coefficient) :
     # cut the last column of the data
     cutDataSet = cDataSet[:, 0:cDataSet.shape[1] - 1]
     rowNum = cutDataSet.shape[0]
@@ -45,14 +45,14 @@ def wqenni_impl(iDataSet, cDataSet) :
     #print "\ncut data set shape :"
     #print cutDataSet.shape
 
-    diffiDataSet = tile(iDataSet, (rowNum, 1)) - cutDataSet
+    diffiDataSet = np.tile(iDataSet, (rowNum, 1)) - cutDataSet
     sqDiffMat = diffiDataSet ** 2
     sqDistances = sqDiffMat.sum(axis=1)
     distance = sqDistances ** 0.5
     # index of euclid distance
     sortedEuclidDist = distance.argsort()
 
-    p_choose = array([-1 for i in range(2 ** colNum)])
+    p_choose = np.array([-1 for i in range(2 ** colNum)])
     for k in range(rowNum) :
         cRowData = cutDataSet[k, :]
         quadrantIndex = quadrantOfIndex(cRowData, iDataSet)
@@ -78,7 +78,7 @@ def wqenni_impl(iDataSet, cDataSet) :
     volumeOfEachQ = compute_volume(p_choose, distance, colNum)
     #print "volumeOfEachQ"
     #print volumeOfEachQ
-    resultData = imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet)
+    resultData = imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet, coefficient)
     #print "resultData"
     #print resultData
     return resultData, p_choose, dist_weight, numOfEachQ, volumeOfEachQ
@@ -96,11 +96,14 @@ def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDat
     tempA = 0.0
     tempB = 0.0
     for i in range(sizeOfQ) :
-        cDataRow = cDataSet[p_choose[i]]
-        # the decision attribute
-        yData = cDataRow[-1]
-        tempA += ((1.0 - coefficient) * dist_weight[i] + coefficient * numOfEachQ[i] / volumeOfEachQ[i]) * yData
-        tempB += ((1.0 - coefficient) * dist_weight[i] + coefficient * numOfEachQ[i] / volumeOfEachQ[i])
+        if dist_weight[i] != 0.0 :
+            cDataRow = cDataSet[p_choose[i]]
+            # the decision attribute
+            yData = cDataRow[-1]
+            tempA += ((1.0 - coefficient) * dist_weight[i] + coefficient * numOfEachQ[i] / volumeOfEachQ[i]) * yData
+            tempB += ((1.0 - coefficient) * dist_weight[i] + coefficient * numOfEachQ[i] / volumeOfEachQ[i])
+        #else :
+           # print "i is %s, weight is %s" %(i, dist_weight[i])
     #print 'tempA %f' %(tempA)
     #print 'tempB %f' %(tempB)
     return tempA / tempB
@@ -108,7 +111,7 @@ def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDat
 # compute the distance wight
 def compute_dist_wight(p_choose, distance, colNum) :
     sizeOfArray = 2 ** colNum
-    dist_weight = array([0.0 for i in range(sizeOfArray)])
+    dist_weight = np.array([0.0 for i in range(sizeOfArray)])
 
     for j in range(sizeOfArray) :
         if p_choose[j] != -1 :
@@ -118,7 +121,7 @@ def compute_dist_wight(p_choose, distance, colNum) :
 # compute volume of each quadrant
 def compute_volume(p_choose, distance, colNum) :
     sizeOfArray = 2 ** colNum
-    volumeOfEachQ = array([0.0 for i in range(sizeOfArray)])
+    volumeOfEachQ = np.array([0.0 for i in range(sizeOfArray)])
     for j in range(sizeOfArray) :
         if p_choose[j] != -1 :
             # 2.0 * dist as the radius
@@ -133,7 +136,7 @@ def countNumOfEachQuadrant(p_choose, distance, cutDataSet, center, timesOfr = 2)
     rowNum = cutDataSet.shape[0]
     colNum = cutDataSet.shape[1]
     # number of index in each quadrant
-    numOfEachQuadrant = array([0 for i in range(2 ** colNum)])
+    numOfEachQuadrant = np.array([0 for i in range(2 ** colNum)])
     for j in range(rowNum) :
         cRowData = cutDataSet[j, :]
         # index of quadrant
