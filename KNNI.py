@@ -57,7 +57,7 @@ def knni_impl(iDataSet, cDataSet, k) :
 # cDataSet :
 # k : the k
 def imputationMissingData(distance, sortedEuclidDist, cDataSet, k = 5) :
-
+    print "the k is %d" %(k)
     tempA = 0.0
     tempB = 0.0
     for i in range(k) :
