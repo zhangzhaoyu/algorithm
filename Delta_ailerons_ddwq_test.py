@@ -8,7 +8,7 @@ import DataFilter as df
 import DDWQ as DDWQ
 import QENNI as QENNI
 
-def test_DDWQ_onDeltaAilerons() :
+def test_DDWQ_onDeltaAilerons(coefficient) :
     print "**************in ddwq test***********"
     deltaDataList = df.dataOfDeltaAilerons()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
@@ -57,9 +57,9 @@ def test_QENNI_onDeltaAilerons() :
     return qenni_rmse
 
 if __name__ == "__main__" :
-    test_size = 5
-    coefficient = 0.5
-    fw = open("result/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient)  +".data", "w+")
+    test_size = 10
+    coefficient = 0.3
+    fw = open("result/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient)  + "_1.5r"  + ".data", "w+")
     qenni_sum = 0.0
     qenni_result = []
     for j in range(test_size) :
