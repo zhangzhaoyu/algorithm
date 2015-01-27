@@ -26,7 +26,7 @@ def createDataSet() :
 
 # iDataSet : incomplete data record
 # cDataSet : complete data set
-def knni_impl(iDataSet, cDataSet) :
+def knni_impl(iDataSet, cDataSet, k) :
     # cut the last column of the data
     cutDataSet = cDataSet[:, 0:cDataSet.shape[1] - 1]
     rowNum = cutDataSet.shape[0]
@@ -46,7 +46,7 @@ def knni_impl(iDataSet, cDataSet) :
     print "sortedEuclidDist :"
     print sortedEuclidDist
 
-    resultData = imputationMissingData(distance,sortedEuclidDist, cDataSet)
+    resultData = imputationMissingData(distance,sortedEuclidDist, cDataSet, k)
     #print "resultData"
     #print resultData
     return resultData

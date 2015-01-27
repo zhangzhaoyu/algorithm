@@ -58,10 +58,9 @@ def test_QENNI_onDeltaAilerons() :
 
 if __name__ == "__main__" :
     test_size = 100
-    fw = open("result/qenni_rmse_result_100.data", "w+")
+    fw = open("result/qenni_rmse_result_" + str(test_size)+ ".data", "w+")
     qenni_sum = 0.0
     qenni_result = []
-    print "qenni result :"
     for j in range(test_size) :
         qenni_rmse = test_QENNI_onDeltaAilerons()
         qenni_result.append(qenni_rmse)

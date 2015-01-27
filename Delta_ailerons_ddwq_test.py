@@ -57,8 +57,8 @@ def test_QENNI_onDeltaAilerons() :
     return qenni_rmse
 
 if __name__ == "__main__" :
-    test_size = 100
-    coefficient = 0.3
+    test_size = 5
+    coefficient = 0.5
     fw = open("result/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient)  +".data", "w+")
     qenni_sum = 0.0
     qenni_result = []
@@ -76,6 +76,6 @@ if __name__ == "__main__" :
     fw.write(str(qenni_average_rmse) + "\n")
     fw.close()
 
-    t = np.arange(0., 5., 0.2)
-    plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, "g^")
-    plt.show()
+    #t = np.arange(0., 5., 0.2)
+    #plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, "g^")
+    #plt.show()

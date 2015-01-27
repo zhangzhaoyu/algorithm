@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import DataFilter as df
 import KNNI as KNNI
 
-def test_KNNI_onDeltaAilerons() :
+def test_KNNI_onDeltaAilerons(k) :
     print "**************in knni test***********"
     deltaDataList = df.dataOfDeltaAilerons()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
@@ -15,7 +15,7 @@ def test_KNNI_onDeltaAilerons() :
 
     impute_data_result = []
     for iDataSet in incompleteDataSet :
-        resultData = KNNI.knni_impl(np.array(iDataSet[:-1]), np.array(completeDataSet))
+        resultData = KNNI.knni_impl(np.array(iDataSet[:-1]), np.array(completeDataSet), k)
         #print "the result is " + resultData
         impute_data_result.append(resultData)
         print resultData
@@ -33,11 +33,13 @@ def test_KNNI_onDeltaAilerons() :
 
 if __name__ == "__main__" :
     test_size = 100
-    fw = open("result/knni_rmse_result_" + str(test_size) + ".data", "w+")
+    # paramater of kNNI
+    k = 5
+    fw = open("result/knni_rmse_result_" + str(test_size) + "_" + str(k) +  ".data", "w+")
     knni_sum = 0.0
     knni_result = []
     for j in range(test_size) :
-        knni_rmse = test_KNNI_onDeltaAilerons()
+        knni_rmse = test_KNNI_onDeltaAilerons(k)
         knni_result.append(knni_rmse)
         print "rmse is "
         print str(knni_rmse)
