@@ -49,8 +49,6 @@ def wqenni_impl(iDataSet, cDataSet, coefficient) :
     sqDiffMat = diffiDataSet ** 2
     sqDistances = sqDiffMat.sum(axis=1)
     distance = sqDistances ** 0.5
-    # index of euclid distance
-    sortedEuclidDist = distance.argsort()
 
     p_choose = np.array([-1 for i in range(2 ** colNum)])
     for k in range(rowNum) :
@@ -100,8 +98,12 @@ def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDat
             cDataRow = cDataSet[p_choose[i]]
             # the decision attribute
             yData = cDataRow[-1]
-            tempA += ((1.0 - coefficient) * dist_weight[i] + coefficient * numOfEachQ[i] / volumeOfEachQ[i]) * yData
-            tempB += ((1.0 - coefficient) * dist_weight[i] + coefficient * numOfEachQ[i] / volumeOfEachQ[i])
+            weightOfDensity = numOfEachQ[i] / (volumeOfEachQ[i] * 10e6)
+            #print "weight of distance : %f" %(dist_weight[i])
+            #print "weight of density : %f" %(weightOfDensity)
+            middle = ((1.0 - coefficient) * dist_weight[i] + coefficient * weightOfDensity)
+            tempA += middle * yData
+            tempB += middle
         #else :
            # print "i is %s, weight is %s" %(i, dist_weight[i])
     #print 'tempA %f' %(tempA)
@@ -132,7 +134,7 @@ def compute_volume(p_choose, distance, colNum) :
     return volumeOfEachQ
 
 # count number of every quadrant
-def countNumOfEachQuadrant(p_choose, distance, cutDataSet, center, timesOfr = 2) :
+def countNumOfEachQuadrant(p_choose, distance, cutDataSet, center, timesOfr = 1.5) :
     rowNum = cutDataSet.shape[0]
     colNum = cutDataSet.shape[1]
     # number of index in each quadrant
