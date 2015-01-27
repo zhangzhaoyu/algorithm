@@ -38,13 +38,13 @@ def knni_impl(iDataSet, cDataSet, k) :
     sqDiffMat = diffiDataSet ** 2
     sqDistances = sqDiffMat.sum(axis=1)
     distance = sqDistances ** 0.5
-    print "distance"
-    print distance
+    #print "distance"
+    #print distance
     # index of euclid distance
     sortedEuclidDist = distance.argsort()
 
-    print "sortedEuclidDist :"
-    print sortedEuclidDist
+    #print "sortedEuclidDist :"
+    #print sortedEuclidDist
 
     resultData = imputationMissingData(distance,sortedEuclidDist, cDataSet, k)
     #print "resultData"
@@ -57,7 +57,7 @@ def knni_impl(iDataSet, cDataSet, k) :
 # cDataSet :
 # k : the k
 def imputationMissingData(distance, sortedEuclidDist, cDataSet, k = 5) :
-    print "the k is %d" %(k)
+
     tempA = 0.0
     tempB = 0.0
     for i in range(k) :

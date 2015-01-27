@@ -32,9 +32,9 @@ def test_KNNI_onDeltaAilerons(k) :
     return knni_rmse
 
 if __name__ == "__main__" :
-    test_size = 10
+    test_size = 100
     # paramater of kNNI
-    k = 3
+    k = 7
     fw = open("result/knni_rmse_result_" + str(test_size) + "_" + str(k) +  ".data", "w+")
     knni_sum = 0.0
     knni_result = []
