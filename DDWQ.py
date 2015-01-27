@@ -134,7 +134,7 @@ def compute_volume(p_choose, distance, colNum) :
     return volumeOfEachQ
 
 # count number of every quadrant
-def countNumOfEachQuadrant(p_choose, distance, cutDataSet, center, timesOfr = 1.5) :
+def countNumOfEachQuadrant(p_choose, distance, cutDataSet, center, timesOfr = 2.0) :
     rowNum = cutDataSet.shape[0]
     colNum = cutDataSet.shape[1]
     # number of index in each quadrant
