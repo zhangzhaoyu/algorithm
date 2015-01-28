@@ -46,6 +46,8 @@ def test_DDWQ_QENNI(coefficient) :
     return ddwq_rmse, qenni_rmse
 
 if __name__ == "__main__" :
-    ddwq_data, qenni_data = test_DDWQ_QENNI(0.4)
-    print "ddwq is %f" %(ddwq_data)
-    print "qenni is %f" %(qenni_data)
+    ddwq_data, qenni_data = test_DDWQ_QENNI(0.1)
+    print "ddwq is " 
+    print ddwq_data
+    print "qenni is"
+    print qenni_data

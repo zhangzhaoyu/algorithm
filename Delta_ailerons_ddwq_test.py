@@ -57,11 +57,12 @@ def test_QENNI_onDeltaAilerons() :
     return qenni_rmse
 
 if __name__ == "__main__" :
-    test_size = 1
+    test_size = 100
     #coefficient = 0.5
     coe_arr = [0.1]
     for coefficient in coe_arr :
-        fw = open("result/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient) + ".data", "w+")
+        #fw = open("result/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient) + ".data", "w+")
+        fw = open("result/ddwq/ddwq_rmse_result_"+ str(test_size) + "_10e10.data", "w+")
         qenni_sum = 0.0
         qenni_result = []
         for j in range(test_size) :
