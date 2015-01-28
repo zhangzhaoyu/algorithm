@@ -98,10 +98,11 @@ def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDat
             cDataRow = cDataSet[p_choose[i]]
             # the decision attribute
             yData = cDataRow[-1]
-            weightOfDensity = numOfEachQ[i] / (volumeOfEachQ[i] * 10e6)
+            weightOfDensity = numOfEachQ[i] / (volumeOfEachQ[i] * 10e7)
             #print "weight of distance : %f" %(dist_weight[i])
             #print "weight of density : %f" %(weightOfDensity)
             middle = ((1.0 - coefficient) * dist_weight[i] + coefficient * weightOfDensity)
+            #print "middle weight : %f" %(middle)
             tempA += middle * yData
             tempB += middle
         #else :

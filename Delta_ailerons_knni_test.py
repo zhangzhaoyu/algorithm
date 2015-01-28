@@ -34,23 +34,24 @@ def test_KNNI_onDeltaAilerons(k) :
 if __name__ == "__main__" :
     test_size = 100
     # paramater of kNNI
-    k = 4
-    fw = open("result/knni_rmse_result_" + str(test_size) + "_" + str(k) +  ".data", "w+")
-    knni_sum = 0.0
-    knni_result = []
-    for j in range(test_size) :
-        knni_rmse = test_KNNI_onDeltaAilerons(k)
-        knni_result.append(knni_rmse)
-        print "rmse is "
-        print str(knni_rmse)
-        fw.write(str(knni_rmse) + "\n")
-        knni_sum += knni_rmse
+    k_arr = [9, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24, 26]
+    for k in k_arr :
+        fw = open("result/knni/knni_rmse_result_" + str(test_size) + "_" + str(k) +  ".data", "w+")
+        knni_sum = 0.0
+        knni_result = []
+        for j in range(test_size) :
+            knni_rmse = test_KNNI_onDeltaAilerons(k)
+            knni_result.append(knni_rmse)
+            print "rmse is "
+            print str(knni_rmse)
+            fw.write(str(knni_rmse) + "\n")
+            knni_sum += knni_rmse
 
-    knni_average_rmse = knni_sum / test_size
-    print "average rmse is"
-    print str(knni_average_rmse)
-    fw.write(str(knni_average_rmse) + "\n")
-    fw.close()
+        knni_average_rmse = knni_sum / test_size
+        print "average rmse is"
+        print str(knni_average_rmse)
+        fw.write(str(knni_average_rmse) + "\n")
+        fw.close()
 
     t = np.arange(0., 5., 0.2)
     plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, "g^")

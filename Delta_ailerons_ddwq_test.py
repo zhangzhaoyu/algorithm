@@ -57,24 +57,27 @@ def test_QENNI_onDeltaAilerons() :
     return qenni_rmse
 
 if __name__ == "__main__" :
-    test_size = 10
-    coefficient = 0.3
-    fw = open("result/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient) + ".data", "w+")
-    qenni_sum = 0.0
-    qenni_result = []
-    for j in range(test_size) :
-        qenni_rmse = test_DDWQ_onDeltaAilerons(coefficient)
-        qenni_result.append(qenni_rmse)
-        print "rmse is "
-        print str(qenni_rmse)
-        fw.write(str(qenni_rmse) + "\n")
-        qenni_sum += qenni_rmse
+    test_size = 100
+    #coefficient = 0.5
+    
+    coe_arr = [0.3, 0.5, 0.7]
+    for coefficient in coe_arr :
+        fw = open("result/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient) + ".data", "w+")
+        qenni_sum = 0.0
+        qenni_result = []
+        for j in range(test_size) :
+            qenni_rmse = test_DDWQ_onDeltaAilerons(coefficient)
+            qenni_result.append(qenni_rmse)
+            print "rmse is "
+            print str(qenni_rmse)
+            fw.write(str(qenni_rmse) + "\n")
+            qenni_sum += qenni_rmse
 
-    qenni_average_rmse = qenni_sum / test_size
-    print "average rmse is"
-    print str(qenni_average_rmse)
-    fw.write(str(qenni_average_rmse) + "\n")
-    fw.close()
+        qenni_average_rmse = qenni_sum / test_size
+        print "average rmse is"
+        print str(qenni_average_rmse)
+        fw.write(str(qenni_average_rmse) + "\n")
+        fw.close()
 
     #t = np.arange(0., 5., 0.2)
     #plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, "g^")
