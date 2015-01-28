@@ -34,7 +34,7 @@ def test_KNNI_onDeltaAilerons(k) :
 if __name__ == "__main__" :
     test_size = 100
     # paramater of kNNI
-    k_arr = [1, 27, 28, 29]
+    k_arr = [16]
     for k in k_arr :
         fw = open("result/knni/knni_rmse_result_" + str(test_size) + "_" + str(k) +  ".data", "w+")
         knni_sum = 0.0

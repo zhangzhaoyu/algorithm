@@ -49,6 +49,17 @@ def dataOfDeltaAilerons(fileName = "delta_ailerons.data") :
     fr.close()
     return returnMat
 
+def dataOfAbalone(fileName = "abalone_filtered.data") :
+    fr = open(fileName)
+    returnMat = []
+    for line in fr :
+        attrArray = line.strip("\n").split(",")
+        temp = [float(val) for val in attrArray]
+        returnMat.append(temp)
+
+    fr.close()
+    return returnMat
+
 
 # random generate the complete data and incomplete data from the full data
 # the default percentage of incomplete data is 0.05

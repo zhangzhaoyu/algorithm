@@ -6,7 +6,8 @@ import DDWQ as DDWQ
 import QENNI as QENNI
 
 def test_DDWQ_QENNI(coefficient) :
-    deltaDataList = df.dataOfDeltaAilerons()
+    #deltaDataList = df.dataOfDeltaAilerons()
+    deltaDataList = df.dataOfAbalone()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
     lenghtOfincompleteData = len(incompleteDataSet)
 
