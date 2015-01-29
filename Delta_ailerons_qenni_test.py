@@ -10,7 +10,8 @@ import QENNI as QENNI
 
 def test_DDWQ_onDeltaAilerons() :
     print "**************in ddwq test***********"
-    deltaDataList = df.dataOfDeltaAilerons()
+    #deltaDataList = df.dataOfDeltaAilerons()
+    deltaDataList = df.dataOfAbalone()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
     lenghtOfincompleteData = len(incompleteDataSet)
 
@@ -34,7 +35,8 @@ def test_DDWQ_onDeltaAilerons() :
 
 def test_QENNI_onDeltaAilerons() :
     print "**************in qenni test***********"
-    deltaDataList = df.dataOfDeltaAilerons()
+    #deltaDataList = df.dataOfDeltaAilerons()
+    deltaDataList = df.dataOfAbalone()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
     lenghtOfincompleteData = len(incompleteDataSet)
 
@@ -58,7 +60,7 @@ def test_QENNI_onDeltaAilerons() :
 
 if __name__ == "__main__" :
     test_size = 100
-    fw = open("result/qenni_rmse_result_" + str(test_size)+ ".data", "w+")
+    fw = open("result/abalone/qenni_rmse_result_" + str(test_size)+ ".data", "w+")
     qenni_sum = 0.0
     qenni_result = []
     for j in range(test_size) :

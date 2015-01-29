@@ -9,7 +9,8 @@ import KNNI as KNNI
 
 def test_KNNI_onDeltaAilerons(k) :
     print "**************in knni test***********"
-    deltaDataList = df.dataOfDeltaAilerons()
+    #deltaDataList = df.dataOfDeltaAilerons()
+    deltaDataList = df.dataOfAbalone()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
     lenghtOfincompleteData = len(incompleteDataSet)
 
@@ -34,9 +35,9 @@ def test_KNNI_onDeltaAilerons(k) :
 if __name__ == "__main__" :
     test_size = 100
     # paramater of kNNI
-    k_arr = [16]
+    k_arr = [i+1 for i in range(30)]
     for k in k_arr :
-        fw = open("result/knni/knni_rmse_result_" + str(test_size) + "_" + str(k) +  ".data", "w+")
+        fw = open("result/abalone/knni/knni_rmse_result_" + str(test_size) + "_" + str(k) +  ".data", "w+")
         knni_sum = 0.0
         knni_result = []
         for j in range(test_size) :
