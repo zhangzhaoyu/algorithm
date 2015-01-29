@@ -87,7 +87,7 @@ def wqenni_impl(iDataSet, cDataSet, coefficient, divisor) :
 # dist_weight : weight of each nearest point
 # volumeOfEachQ: volume of each quadrant where r = 2 min dist(Neari, center)
 # coefficient : percentage of each weight
-def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet, coefficient = -1.0, divisor = 10e10) :
+def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet, coefficient = -1.0, divisor = 10) :
     sumOfIndex = numOfEachQ.sum()
     sizeOfQ = len(dist_weight)
 
@@ -98,7 +98,7 @@ def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDat
             cDataRow = cDataSet[p_choose[i]]
             # the decision attribute
             yData = cDataRow[-1]
-            weightOfDensity = numOfEachQ[i] / (volumeOfEachQ[i] * divisor)
+            weightOfDensity = numOfEachQ[i] / (volumeOfEachQ[i] * (10.0 ** divisor))
             middle = 0.0
             print "coefficient is %s" %(coefficient)
             print "divisor is %d" %(divisor)

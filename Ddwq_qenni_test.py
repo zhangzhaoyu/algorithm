@@ -49,7 +49,7 @@ def test_DDWQ_QENNI(coefficient, divisor) :
     return ddwq_rmse, qenni_rmse
 
 if __name__ == "__main__" :
-    ddwq_data, qenni_data = test_DDWQ_QENNI(0.3, 10e9)
+    ddwq_data, qenni_data = test_DDWQ_QENNI(-1, 10)
     print "ddwq is " 
     print ddwq_data
     print "qenni is"

@@ -36,12 +36,12 @@ def test_DDWQ_onAbalone(coefficient, divisor) :
 if __name__ == "__main__" :
     test_size = 100
     #coefficient = 0.5
-    coe_arr = [0.3, 0.5, 0.7]
-    divisor = 10e9
+    coe_arr = [-1.0]
+    divisor = 7
 
     for coefficient in coe_arr :
         #fw = open("result/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient) + ".data", "w+")
-        fw = open("result/abalone/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(divisor)+ ".data", "w+")
+        fw = open("result/abalone/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient) + "_10e" + str(divisor-1)+ ".data", "w+")
         qenni_sum = 0.0
         qenni_result = []
         for j in range(test_size) :
