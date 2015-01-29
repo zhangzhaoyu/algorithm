@@ -63,7 +63,7 @@ if __name__ == "__main__" :
     coe_arr = [0.1]
     for coefficient in coe_arr :
         #fw = open("result/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient) + ".data", "w+")
-        fw = open("result/abalone/ddwq/ddwq_rmse_result_"+ str(test_size) + "_10e10.data", "w+")
+        fw = open("result/abalone/ddwq/ddwq_rmse_result_"+ str(test_size) + "_10e8.data", "w+")
         qenni_sum = 0.0
         qenni_result = []
         for j in range(test_size) :
