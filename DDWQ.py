@@ -37,7 +37,7 @@ def quadrantOfIndex(target, center) :
 
 # iDataSet : incomplete data record
 # cDataSet : complete data set
-def wqenni_impl(iDataSet, cDataSet, coefficient) :
+def wqenni_impl(iDataSet, cDataSet, coefficient, divisor) :
     # cut the last column of the data
     cutDataSet = cDataSet[:, 0:cDataSet.shape[1] - 1]
     rowNum = cutDataSet.shape[0]
@@ -76,7 +76,7 @@ def wqenni_impl(iDataSet, cDataSet, coefficient) :
     volumeOfEachQ = compute_volume(p_choose, distance, colNum)
     #print "volumeOfEachQ"
     #print volumeOfEachQ
-    resultData = imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet, coefficient)
+    resultData = imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet, coefficient, divisor)
     #print "resultData"
     #print resultData
     return resultData, p_choose, dist_weight, numOfEachQ, volumeOfEachQ
@@ -87,7 +87,7 @@ def wqenni_impl(iDataSet, cDataSet, coefficient) :
 # dist_weight : weight of each nearest point
 # volumeOfEachQ: volume of each quadrant where r = 2 min dist(Neari, center)
 # coefficient : percentage of each weight
-def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet, coefficient = 0.5) :
+def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet, coefficient = -1.0, divisor = 10e10) :
     sumOfIndex = numOfEachQ.sum()
     sizeOfQ = len(dist_weight)
 
@@ -98,9 +98,15 @@ def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDat
             cDataRow = cDataSet[p_choose[i]]
             # the decision attribute
             yData = cDataRow[-1]
-            weightOfDensity = numOfEachQ[i] / (volumeOfEachQ[i] * 10e8)
-            #middle = ((1.0 - coefficient) * dist_weight[i] + coefficient * weightOfDensity)
-            middle  = dist_weight[i] + weightOfDensity
+            weightOfDensity = numOfEachQ[i] / (volumeOfEachQ[i] * divisor)
+            middle = 0.0
+            print "coefficient is %s" %(coefficient)
+            print "divisor is %d" %(divisor)
+            if coefficient > -1.0 :
+                middle = ((1.0 - coefficient) * dist_weight[i] + coefficient * weightOfDensity)
+            else :
+                print 'no coefficient'
+                middle  = dist_weight[i] + weightOfDensity
             print "weight of distance : %f" %(dist_weight[i])
             print "middle weight : %f" %(middle)
             print "weight of density : %f" %(weightOfDensity)
