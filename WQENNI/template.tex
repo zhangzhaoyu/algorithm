@@ -188,11 +188,11 @@ W(\rho)_i = \frac{N_i}{\frac{V_n(R)_i}{2^m}}
 In order to test our algorithm, we choose the open datasets Abalone which is from UCI and Delta\_ailerons which is from weka. We do the same experiments as QENNI does. The sex attribute is excluded and left the data whose sex value is $M$. It has 8 attributes and 1528 records in total. The Diameter attribute is chosen as decision attribute and missing data is generated on it. The Delta\_ailerons dataset has 6 attributes and 7129 records in total. The last attribute is chosen as decision attribute and the missing data is generated on it. The imputation accuracy is used as evaluation index. In general, the Root Mean Square Error (RMSE)\cite{RMSE} is used. $e_i$ is the original value, $e'_i$ is the imputation value and $m$ is the number of missing data. The smaller the RMSE, the higher the imputation accuracy.
 \begin{equation}
 \label{eq:6}
-RMSE = \frac{1}{m}\sum\limits_{1=1}\limits^{m}(e_i - e'_i)^2
+RMSE = \frac{1}{m}\sum\limits_{1=1}\limits^{m}(|e_i - e'_i|)
 \end{equation}
 
 \subsection{Experiments and results analysis}
-In order to get more objective results, both datasets randomly generate the missing data. For evaluation, the missing rate sets $5\%$ and 200 times of random missing experiments are done on it to calculate the average of RMSE. The following is the comparison of QENNI and WWDQ when $\beta \in \{0.0, 0.1,\cdots,  0.5,\cdots, 1.0\}$.
+In order to get more objective results, both datasets randomly generate the missing data. For evaluation, the missing rate sets $5\%$ and 100 times of random missing experiments are done on it to calculate the average of RMSE. The following is the comparison of $k$NNI, QENNI and DDWQ.
 
 \begin{figure}[h]
 \centering
@@ -200,8 +200,7 @@ In order to get more objective results, both datasets randomly generate the miss
 \caption{Results of Abalone and Delta\_ailerons datasets}
 \label{fig:figure4}
 \end{figure}
-Compared from the Fig. \ref{fig:figure4}, we can draw a conclusion that WWDQENNI algorithm has better imputation accuracy than QENNI no matter what's the value of $\beta$.
-
+Compared from the Fig. \ref{fig:figure4}, we can draw the following conclusions. The first one, no matter what the value of $k$, the QEENNI and DDWQ algorithm has better imputation accuracy than $k$NNI. The second one, DDWQ has a smaller RMSE than QENNI in the same missing rate. It means our DDWQ is better than QENNI. The third one, the value of $k$ affects the imputation accuracy of $k$NNI seriously, but DDWQ and QENNI have nothing to do with it. In short, the results of the experiments indicate that DDWQ and QENNI eliminate the effects of $k$ and have a higher imputation than $k$NNI.
 \section{Conclusion}
 For improving the accuracy of missing data imputation, DDWQ imputation algorithm has been put forward. The algorithm is able to overcome the limitations of $k$NNI and QENNI. The innovation of our algorithm is to take the density of points in each quadrant and distance between the complete data and the missing data into consideration based on the Shell-neighbors thought. So, the result of missing data value can be more closer to the ideal one. The experimental results indicate that DDWQ algorithm has a better performance than QENNI.
 

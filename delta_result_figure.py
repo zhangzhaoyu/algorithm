@@ -51,17 +51,20 @@ def read_ddwq_data(filepath = "result/ddwq/") :
 if __name__ == "__main__" :
 
     plt.figure(figsize=(18, 10))
+
     plt.subplot(221)
-    plt.axis([0, 30, 0.000120, 0.000170])
-    knni_y_data =  read_knni_data()
+    #plt.figure(figsize=(8, 4))
+    #plt.axis([0, 30, 0.000120, 0.000170])
+
+    knni_y_data =  read_knni_data("result/abalone/knni/")
     knni_x_data = np.arange(1, 31 , 1)
     line1, = plt.plot(knni_x_data, knni_y_data, 'y^-', marker = '^', label = 'kNNI', linewidth = 1.0)
 
-    qenni_y_data = read_qenni_data()
+    qenni_y_data = read_qenni_data("result/abalone/qenni/")
     qenni_x_data = np.arange(1, 31 , 1)
     line2, = plt.plot(qenni_x_data, qenni_y_data, 'bs-', marker = 's', label = 'QENNI', linewidth = 1.0)
 
-    ddwq_y_data = read_ddwq_data()
+    ddwq_y_data = read_ddwq_data("result/abalone/ddwq/")
     ddwq_x_data = np.arange(1, 31 , 1)
     line3, = plt.plot(ddwq_x_data, ddwq_y_data, 'ro-', marker = 'o', label = 'DDWQ', linewidth = 1.0)
 
@@ -69,12 +72,11 @@ if __name__ == "__main__" :
     plt.ylabel('RMSE')
     #plt.legend([line1, line2, line3], ["kNNI", "QENNI", "DDWQ"])
     plt.legend()
+
 
 
     plt.subplot(222)
-    #plt.figure(figsize=(8, 4))
     plt.axis([0, 30, 0.000120, 0.000170])
-
     knni_y_data =  read_knni_data()
     knni_x_data = np.arange(1, 31 , 1)
     line1, = plt.plot(knni_x_data, knni_y_data, 'y^-', marker = '^', label = 'kNNI', linewidth = 1.0)
@@ -92,6 +94,4 @@ if __name__ == "__main__" :
     #plt.legend([line1, line2, line3], ["kNNI", "QENNI", "DDWQ"])
     plt.legend()
 
-
     plt.show()
-    print knni_x_data
