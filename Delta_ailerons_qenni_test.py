@@ -8,31 +8,6 @@ import DataFilter as df
 import DDWQ as DDWQ
 import QENNI as QENNI
 
-def test_DDWQ_onDeltaAilerons() :
-    print "**************in ddwq test***********"
-    #deltaDataList = df.dataOfDeltaAilerons()
-    deltaDataList = df.dataOfAbalone()
-    completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
-    lenghtOfincompleteData = len(incompleteDataSet)
-
-    impute_data_result = []
-    for iDataSet in incompleteDataSet :
-        resultData, p_phoose, dist_weight, numOfEachQ, volumeOfEachQ = DDWQ.wqenni_impl(np.array(iDataSet[:-1]), np.array(completeDataSet))
-        #print "the result is " + resultData
-        impute_data_result.append(resultData)
-        print resultData
-       # print "total times %d" %(i)
-
-    # compute the RMSE
-    m = len(impute_data_result)
-    sum = 0.0
-    for j in range(m) :
-        sum += abs(incompleteDataSet[j][-1] - impute_data_result[j])
-    ddwq_rmse = sum / m
-    #print "sum is %f, m is %d " %(sum, m)
-    #print "the ddwq rmse is %f" %(rmse)
-    return ddwq_rmse
-
 def test_QENNI_onDeltaAilerons() :
     print "**************in qenni test***********"
     #deltaDataList = df.dataOfDeltaAilerons()
@@ -77,6 +52,6 @@ if __name__ == "__main__" :
     fw.write(str(qenni_average_rmse) + "\n")
     fw.close()
 
-    t = np.arange(0., 5., 0.2)
-    plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, "g^")
-    plt.show()
+    #t = np.arange(0., 5., 0.2)
+    #plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, "g^")
+    #plt.show()
