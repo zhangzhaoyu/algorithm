@@ -3,14 +3,12 @@
 # Test the data set of Delta_ailerons by algorithm KNNI
 # show the result by matplotlib
 import numpy as np
-import matplotlib.pyplot as plt
 import DataFilter as df
 import KNNI as KNNI
 
 def test_KNNI_onDeltaAilerons(k) :
     print "**************in knni test***********"
-    #deltaDataList = df.dataOfDeltaAilerons()
-    deltaDataList = df.dataOfAbalone()
+    deltaDataList = df.dataOfDeltaAilerons()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
     lenghtOfincompleteData = len(incompleteDataSet)
 
@@ -37,7 +35,7 @@ if __name__ == "__main__" :
     # paramater of kNNI
     k_arr = [i+1 for i in range(30)]
     for k in k_arr :
-        fw = open("result/abalone/knni/knni_rmse_result_" + str(test_size) + "_" + str(k) +  ".data", "w+")
+        fw = open("result/knni/knni_rmse_result_" + str(test_size) + "_" + str(k) +  ".data", "w+")
         knni_sum = 0.0
         knni_result = []
         for j in range(test_size) :

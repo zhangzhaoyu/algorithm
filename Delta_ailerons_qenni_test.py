@@ -3,15 +3,12 @@
 # Test the data set of Delta_ailerons by algorithm QENNI and WWDQ
 # show the result by matplotlib
 import numpy as np
-import matplotlib.pyplot as plt
 import DataFilter as df
-import DDWQ as DDWQ
 import QENNI as QENNI
 
 def test_QENNI_onDeltaAilerons() :
     print "**************in qenni test***********"
-    #deltaDataList = df.dataOfDeltaAilerons()
-    deltaDataList = df.dataOfAbalone()
+    deltaDataList = df.dataOfDeltaAilerons()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
     lenghtOfincompleteData = len(incompleteDataSet)
 
@@ -35,7 +32,7 @@ def test_QENNI_onDeltaAilerons() :
 
 if __name__ == "__main__" :
     test_size = 100
-    fw = open("result/abalone/qenni/qenni_rmse_result_" + str(test_size)+ ".data", "w+")
+    fw = open("result/qenni/qenni_rmse_result_" + str(test_size)+ ".data", "w+")
     qenni_sum = 0.0
     qenni_result = []
     for j in range(test_size) :
@@ -51,7 +48,3 @@ if __name__ == "__main__" :
     print str(qenni_average_rmse)
     fw.write(str(qenni_average_rmse) + "\n")
     fw.close()
-
-    #t = np.arange(0., 5., 0.2)
-    #plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, "g^")
-    #plt.show()
