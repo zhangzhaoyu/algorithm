@@ -37,7 +37,7 @@ if __name__ == "__main__" :
     test_size = 100
     #coefficient = 0.5
     coe_arr = [-1.0]
-    divisor = 7
+    divisor = 11
 
     for coefficient in coe_arr :
         #fw = open("result/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient) + ".data", "w+")
