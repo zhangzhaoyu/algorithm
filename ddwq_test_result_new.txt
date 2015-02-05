@@ -1,0 +1,10 @@
+# 权重归一化处理后, 二分计算密度权重所占的比例coefficient 的值.
+
+Test on data Abalone
+DDWQ
+times   coefficient     imputation RMSE
+100     0.125           0.013988
+
+QENNI
+times   imputation RMSE
+100     0.0141786243787
