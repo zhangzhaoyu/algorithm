@@ -41,9 +41,9 @@ def return_rmse_size_coefficient(test_size, coefficient) :
     return average_rmse
 
 if __name__ == "__main__" :
-    test_size = 2
+    test_size = 100
     min_coefficient = 0.10
-    max_coefficient = 0.99
+    max_coefficient = 0.50
     min_average_rmse = return_rmse_size_coefficient(test_size, min_coefficient)
     max_average_rmse = return_rmse_size_coefficient(test_size, max_coefficient)
     current_coefficient = 0.0
@@ -55,17 +55,17 @@ if __name__ == "__main__" :
 
         if min_average_rmse < max_average_rmse :
             max_coefficient = (min_coefficient + max_coefficient) / 2.0
-            max_temp = return_rmse_size_coefficient(test_size, max_coefficient)
-            if max_temp >= max_average_rmse :
-                running_flag = False
-            else :
-                max_average_rmse = max_temp
+            max_average_rmse = return_rmse_size_coefficient(test_size, max_coefficient)
+            #if max_temp >= max_average_rmse :
+            #    running_flag = False
+            #else :
+            #    max_average_rmse = max_temp
         else :
             min_coefficient = (min_coefficient + max_coefficient) / 2.0
-            min_temp = return_rmse_size_coefficient(test_size, min_coefficient)
-            if min_temp >= min_average_rmse :
-                running_flag = False
-            else :
-                min_average_rmse = min_temp
+            min_average_rmse = return_rmse_size_coefficient(test_size, min_coefficient)
+            #if min_temp >= min_average_rmse :
+            #    running_flag = False
+            #else :
+            #    min_average_rmse = min_temp
 
     print 'algorithm is finished!!!'

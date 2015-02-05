@@ -90,7 +90,7 @@ def qenni_impl(iDataSet, cDataSet) :
 # volumeOfEachQ: volume of each quadrant where r = 2 min dist(Neari, center)
 # coefficient : percentage of each weight
 def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet) :
-    sumOfIndex = numOfEachQ.sum()
+    #sumOfIndex = numOfEachQ.sum()
     sizeOfQ = len(dist_weight)
 
     tempA = 0.0
