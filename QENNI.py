@@ -116,6 +116,13 @@ def compute_dist_wight(p_choose, distance, colNum) :
     for j in range(sizeOfArray) :
         if p_choose[j] != -1 :
             dist_weight[j] = 1.0 / (distance[p_choose[j]]) ** 2
+
+    min_weight = dist_weight.min()
+    max_weight = dist_weight.max()
+    max_min = max_weight - min_weight
+
+    for i in range(sizeOfArray) :
+        dist_weight[i] = (dist_weight[i] - min_weight) / max_min
     return dist_weight
 
 # compute volume of each quadrant
