@@ -34,8 +34,8 @@ def test_DDWQ_onDeltaAilerons(coefficient, divisor) :
 if __name__ == "__main__" :
     test_size = 100
     #coefficient = 0.5
-    coe_arr = [-1.0]
-    divisors = [8, 9, 10, 11]
+    coe_arr = [0.3]
+    divisors = [10]
     for coefficient in coe_arr :
         for divisor in divisors :
             fw = open("result/delta/ddwq/ddwq_rmse_result_"+ str(test_size) + "_" + str(coefficient) + "_10e" + str(divisor-1)+ ".data", "w+")
