@@ -7,7 +7,7 @@ import QENNI as QENNI
 
 # coefficient : percentage of density
 # divisor : divisor
-def test_DDWQ_QENNI(coefficient, divisor) :
+def test_DDWQ_QENNI(coefficient) :
     #deltaDataList = df.dataOfDeltaAilerons()
     deltaDataList = df.dataOfAbalone()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
@@ -15,7 +15,7 @@ def test_DDWQ_QENNI(coefficient, divisor) :
 
     impute_data_result = []
     for iDataSet in incompleteDataSet :
-        resultData, p_phoose, dist_weight, numOfEachQ, volumeOfEachQ = DDWQ.wqenni_impl(np.array(iDataSet[:-1]), np.array(completeDataSet), coefficient, divisor)
+        resultData, p_phoose, dist_weight, numOfEachQ, volumeOfEachQ = DDWQ.wqenni_impl(np.array(iDataSet[:-1]), np.array(completeDataSet), coefficient)
         #print "the result is " + resultData
         impute_data_result.append(resultData)
         print resultData
@@ -49,7 +49,7 @@ def test_DDWQ_QENNI(coefficient, divisor) :
     return ddwq_rmse, qenni_rmse
 
 if __name__ == "__main__" :
-    ddwq_data, qenni_data = test_DDWQ_QENNI(-1, 10)
+    ddwq_data, qenni_data = test_DDWQ_QENNI(0.3)
     print "ddwq is " 
     print ddwq_data
     print "qenni is"

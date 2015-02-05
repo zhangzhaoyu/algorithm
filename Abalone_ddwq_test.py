@@ -8,16 +8,15 @@ import DataFilter as df
 import DDWQ as DDWQ
 import QENNI as QENNI
 
-def test_DDWQ_onAbalone(coefficient, divisor) :
+def test_DDWQ_onAbalone(coefficient) :
     print "**************in ddwq test***********"
-    #deltaDataList = df.dataOfDeltaAilerons()
     deltaDataList = df.dataOfAbalone()
     completeDataSet, incompleteDataSet = df.createRandomCompleteAndIncompleteDataSet(deltaDataList)
     lenghtOfincompleteData = len(incompleteDataSet)
 
     impute_data_result = []
     for iDataSet in incompleteDataSet :
-        resultData, p_phoose, dist_weight, numOfEachQ, volumeOfEachQ = DDWQ.wqenni_impl(np.array(iDataSet[:-1]), np.array(completeDataSet), coefficient, divisor)
+        resultData, p_phoose, dist_weight, numOfEachQ, volumeOfEachQ = DDWQ.wqenni_impl(np.array(iDataSet[:-1]), np.array(completeDataSet), coefficient)
         #print "the result is " + resultData
         impute_data_result.append(resultData)
         print resultData

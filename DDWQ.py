@@ -37,7 +37,7 @@ def quadrantOfIndex(target, center) :
 
 # iDataSet : incomplete data record
 # cDataSet : complete data set
-def wqenni_impl(iDataSet, cDataSet, coefficient, divisor) :
+def wqenni_impl(iDataSet, cDataSet, coefficient) :
     # cut the last column of the data
     cutDataSet = cDataSet[:, 0:cDataSet.shape[1] - 1]
     rowNum = cutDataSet.shape[0]
@@ -71,12 +71,14 @@ def wqenni_impl(iDataSet, cDataSet, coefficient, divisor) :
     #print "numOfEachQ"
     #print numOfEachQ
     dist_weight = compute_dist_wight(p_choose, distance, colNum)
-    #print "dis_weight"
+    #print "dist_weight"
     #print dist_weight
     volumeOfEachQ = compute_volume(p_choose, distance, colNum)
-    #print "volumeOfEachQ"
-    #print volumeOfEachQ
-    resultData = imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet, coefficient, divisor)
+    density_weight = compute_density_weight(p_choose, numOfEachQ, volumeOfEachQ)
+    #print "density_weight"
+    #print density_weight
+
+    resultData = imputationMissingData(p_choose, dist_weight, density_weight, cDataSet, coefficient)
     #print "resultData"
     #print resultData
     return resultData, p_choose, dist_weight, numOfEachQ, volumeOfEachQ
@@ -87,30 +89,28 @@ def wqenni_impl(iDataSet, cDataSet, coefficient, divisor) :
 # dist_weight : weight of each nearest point
 # volumeOfEachQ: volume of each quadrant where r = 2 min dist(Neari, center)
 # coefficient : percentage of each weight
-def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDataSet, coefficient = -1.0, divisor = 10) :
-    sumOfIndex = numOfEachQ.sum()
+def imputationMissingData(p_choose, dist_weight, density_weight, cDataSet, coefficient = -1.0) :
+    #sumOfIndex = numOfEachQ.sum()
     sizeOfQ = len(dist_weight)
 
     tempA = 0.0
     tempB = 0.0
+    # normalized weight of density and distance
     for i in range(sizeOfQ) :
         if dist_weight[i] != 0.0 :
             cDataRow = cDataSet[p_choose[i]]
             # the decision attribute
             yData = cDataRow[-1]
-            weightOfDensity = numOfEachQ[i] / (volumeOfEachQ[i] * (10.0 ** divisor))
             middle = 0.0
-            print "coefficient is %s" %(coefficient)
-            print "divisor is %d" %(divisor)
+            #print "coefficient is %s" %(coefficient)
             if coefficient > -1.0 :
-                middle = ((1.0 - coefficient) * dist_weight[i] + coefficient * weightOfDensity)
+                middle = ((1.0 - coefficient) * dist_weight[i] + coefficient * density_weight[i])
             else :
                 print 'no coefficient'
-                middle  = dist_weight[i] + weightOfDensity
-            print "weight of distance : %f" %(dist_weight[i])
-            print "middle weight : %f" %(middle)
-            print "weight of density : %f" %(weightOfDensity)
-            
+                middle  = dist_weight[i] + density_weight[i]
+            #print "weight of distance : %f" %(dist_weight[i])
+            #print "middle weight : %f" %(middle)
+            #print "weight of density : %f" %(density_weight[i])
             tempA += middle * yData
             tempB += middle
         #else :
@@ -119,7 +119,7 @@ def imputationMissingData(p_choose, numOfEachQ, dist_weight, volumeOfEachQ, cDat
     #print 'tempB %f' %(tempB)
     return tempA / tempB
 
-# compute the distance wight
+# compute the distance weight and normalized weight
 def compute_dist_wight(p_choose, distance, colNum) :
     sizeOfArray = 2 ** colNum
     dist_weight = np.array([0.0 for i in range(sizeOfArray)])
@@ -127,7 +127,31 @@ def compute_dist_wight(p_choose, distance, colNum) :
     for j in range(sizeOfArray) :
         if p_choose[j] != -1 :
             dist_weight[j] = 1.0 / (distance[p_choose[j]]) ** 2
+    min_weight = dist_weight.min()
+    max_weight = dist_weight.max()
+    max_min = max_weight - min_weight
+
+    for i in range(sizeOfArray) :
+        dist_weight[i] = (dist_weight[i] - min_weight) / max_min
     return dist_weight
+
+# compute the density weight and normalized weight
+def compute_density_weight(p_choose, numOfEachQ, volumeOfEachQ) :
+    sizeOfQ = len(numOfEachQ)
+    density_weight = np.array([0.0 for i in range(sizeOfQ)])
+
+    for j in range(sizeOfQ) :
+        if p_choose[j] != -1 :
+            density_weight[j] = numOfEachQ[j] / volumeOfEachQ[j]
+
+    min_weight = density_weight.min()
+    max_weight = density_weight.max()
+    max_min = max_weight - min_weight
+
+    for i in range(sizeOfQ) :
+        density_weight[i] = (density_weight[i] - min_weight) / max_min
+        #print density_weight[i]
+    return density_weight
 
 # compute volume of each quadrant
 def compute_volume(p_choose, distance, colNum) :
