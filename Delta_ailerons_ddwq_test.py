@@ -69,6 +69,6 @@ if __name__ == "__main__" :
             #else :
             #    min_average_rmse = min_temp
     #fw.close()
-    average_rmse = rmse_size_coefficient(100, 0.125)
+    average_rmse = return_rmse_size_coefficient(100, 0.125)
     print average_rmse
     print 'algorithm is finished!!!'
