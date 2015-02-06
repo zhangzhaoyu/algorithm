@@ -41,7 +41,7 @@ def return_rmse_size_coefficient(test_size, coefficient) :
 
 if __name__ == "__main__" :
     fw = open("result/delta/ddwq/ddwq_rmse_result_new.data", "w+")
-    test_size = 1
+    test_size = 100
     min_coefficient = 0.10
     max_coefficient = 0.50
     min_average_rmse = return_rmse_size_coefficient(test_size, min_coefficient)
@@ -68,5 +68,5 @@ if __name__ == "__main__" :
             #    running_flag = False
             #else :
             #    min_average_rmse = min_temp
-
+    fw.close()
     print 'algorithm is finished!!!'
