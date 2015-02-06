@@ -40,33 +40,35 @@ def return_rmse_size_coefficient(test_size, coefficient) :
     return average_rmse
 
 if __name__ == "__main__" :
-    fw = open("result/delta/ddwq/ddwq_rmse_result_new.data", "w+")
-    test_size = 100
-    min_coefficient = 0.10
-    max_coefficient = 0.50
-    min_average_rmse = return_rmse_size_coefficient(test_size, min_coefficient)
-    max_average_rmse = return_rmse_size_coefficient(test_size, max_coefficient)
-    current_coefficient = 0.0
+    #fw = open("result/delta/ddwq/ddwq_rmse_result_new.data", "w+")
+    #test_size = 100
+    #min_coefficient = 0.10
+    #max_coefficient = 0.50
+    #min_average_rmse = return_rmse_size_coefficient(test_size, min_coefficient)
+    #max_average_rmse = return_rmse_size_coefficient(test_size, max_coefficient)
+    #current_coefficient = 0.0
 
-    running_flag = True
-    while running_flag :
-        print "min_average_rmse is %.8f, min_coefficient is %.8f " %(min_average_rmse, min_coefficient)
-        print "max_average_rmse is %.8f, max_coefficient is %.8f " %(max_average_rmse, max_coefficient)
-        fw.write(str(min_coefficient) + " " + str(min_average_rmse) + "\n")
-        fw.write(str(max_coefficient) + " " + str(max_average_rmse) + "\n\n")
-        if min_average_rmse < max_average_rmse :
-            max_coefficient = (min_coefficient + max_coefficient) / 2.0
-            max_average_rmse = return_rmse_size_coefficient(test_size, max_coefficient)
+    #running_flag = True
+    #while running_flag :
+        #print "min_average_rmse is %.8f, min_coefficient is %.8f " %(min_average_rmse, min_coefficient)
+        #print "max_average_rmse is %.8f, max_coefficient is %.8f " %(max_average_rmse, max_coefficient)
+        #fw.write(str(min_coefficient) + " " + str(min_average_rmse) + "\n")
+        #fw.write(str(max_coefficient) + " " + str(max_average_rmse) + "\n\n")
+        #if min_average_rmse < max_average_rmse :
+            #max_coefficient = (min_coefficient + max_coefficient) / 2.0
+            #max_average_rmse = return_rmse_size_coefficient(test_size, max_coefficient)
             #if max_temp >= max_average_rmse :
             #    running_flag = False
             #else :
             #    max_average_rmse = max_temp
-        else :
-            min_coefficient = (min_coefficient + max_coefficient) / 2.0
-            min_average_rmse = return_rmse_size_coefficient(test_size, min_coefficient)
+        #else :
+            #min_coefficient = (min_coefficient + max_coefficient) / 2.0
+            #min_average_rmse = return_rmse_size_coefficient(test_size, min_coefficient)
             #if min_temp >= min_average_rmse :
             #    running_flag = False
             #else :
             #    min_average_rmse = min_temp
-    fw.close()
+    #fw.close()
+    average_rmse = rmse_size_coefficient(100, 0.125)
+    print average_rmse
     print 'algorithm is finished!!!'
