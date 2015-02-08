@@ -64,10 +64,12 @@ if __name__ == "__main__" :
     qenni_x_data = np.arange(1, 31 , 1)
     line2, = plt.plot(qenni_x_data, qenni_y_data, 'bs-', marker = 's', label = 'QENNI', linewidth = 1.0)
 
-    ddwq_y_data = read_ddwq_data("result/abalone/ddwq/")
+    #ddwq_y_data = read_ddwq_data("result/abalone/ddwq/")
+    ddwq_y_data = np.array([0.013988 for i in range(30)])
     ddwq_x_data = np.arange(1, 31 , 1)
     line3, = plt.plot(ddwq_x_data, ddwq_y_data, 'ro-', marker = 'o', label = 'DDWQ', linewidth = 1.0)
 
+    plt.title('Abalone Dataset')
     plt.xlabel('k')
     plt.ylabel('RMSE')
     #plt.legend([line1, line2, line3], ["kNNI", "QENNI", "DDWQ"])
@@ -88,7 +90,7 @@ if __name__ == "__main__" :
     ddwq_y_data = read_ddwq_data()
     ddwq_x_data = np.arange(1, 31 , 1)
     line3, = plt.plot(ddwq_x_data, ddwq_y_data, 'ro-', marker = 'o', label = 'DDWQ', linewidth = 1.0)
-
+    plt.title("Delta_ailerons Dataset")
     plt.xlabel('k')
     plt.ylabel('RMSE')
     #plt.legend([line1, line2, line3], ["kNNI", "QENNI", "DDWQ"])
